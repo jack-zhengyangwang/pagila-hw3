@@ -6,18 +6,20 @@
 
 SELECT first_name, last_name
 FROM actor
-WHERE actor_id IN (
-    SELECT actor_id
+WHERE EXISTS (
+    SELECT 1
     FROM film_actor
     JOIN film_category USING (film_id)
     JOIN category USING (category_id)
-    WHERE name = 'Children'
+    WHERE actor.actor_id = film_actor.actor_id
+    AND category.name = 'Children'
 )
-AND actor_id NOT IN (
-    SELECT actor_id
+AND NOT EXISTS (
+    SELECT 1
     FROM film_actor
     JOIN film_category USING (film_id)
     JOIN category USING (category_id)
-    WHERE name = 'Horror'
+    WHERE actor.actor_id = film_actor.actor_id
+    AND category.name = 'Horror'
 )
 ORDER BY last_name, first_name;

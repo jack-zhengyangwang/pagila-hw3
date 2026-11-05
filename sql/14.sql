@@ -13,7 +13,7 @@ FROM (
     SELECT cat.name,
            f.title,
            count(*) AS "total rentals",
-           rank() OVER (
+           row_number() OVER (
                PARTITION BY cat.category_id
                ORDER BY count(*) DESC, f.title
            ) AS rk

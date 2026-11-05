@@ -18,7 +18,7 @@ JOIN LATERAL (
     SELECT r.rental_date, r.inventory_id
     FROM rental r
     WHERE r.customer_id = c.customer_id
-    ORDER BY r.rental_date DESC
+    ORDER BY r.rental_date DESC, r.rental_id DESC
     LIMIT 1
 ) r ON true
 JOIN inventory i ON r.inventory_id = i.inventory_id

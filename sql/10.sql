@@ -23,4 +23,4 @@ FROM (
     GROUP BY c.customer_id, c.first_name, c.last_name
 ) t
 WHERE percentile >= 90
-ORDER BY first_name, last_name;
+ORDER BY last_name, first_name;

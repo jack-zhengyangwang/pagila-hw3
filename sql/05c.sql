@@ -9,15 +9,9 @@
 SELECT f.title
 FROM film f
 JOIN film_actor fa ON f.film_id = fa.film_id
-WHERE fa.actor_id IN (
-    SELECT actor_id
-    FROM film_actor
-    WHERE film_id IN (
-        SELECT film_id
-        FROM film
-        WHERE title IN ('AMERICAN CIRCUS', 'ACADEMY DINOSAUR', 'AGENT TRUMAN')
-    )
-)
+JOIN film_actor fa2 ON fa.actor_id = fa2.actor_id
+JOIN film f2 ON fa2.film_id = f2.film_id
+WHERE f2.title IN ('AMERICAN CIRCUS', 'ACADEMY DINOSAUR', 'AGENT TRUMAN')
 GROUP BY f.film_id, f.title
-HAVING count(*) >= 3
+HAVING count(DISTINCT fa.actor_id) >= 3
 ORDER BY f.title;

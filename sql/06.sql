@@ -25,4 +25,4 @@ AND actor_id <> (
     SELECT actor_id FROM actor
     WHERE first_name = 'RUSSELL' AND last_name = 'BACALL'
 )
-ORDER BY first_name, last_name;
+ORDER BY last_name, first_name;

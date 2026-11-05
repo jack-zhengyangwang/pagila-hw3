@@ -17,7 +17,7 @@ FROM (
            a.last_name,
            f.film_id,
            f.title,
-           rank() OVER (PARTITION BY a.actor_id ORDER BY sum(p.amount) DESC) AS rank,
+           rank() OVER (PARTITION BY a.actor_id ORDER BY sum(p.amount) DESC, f.title) AS rank,
            sum(p.amount) AS revenue
     FROM actor a
     JOIN film_actor fa ON a.actor_id = fa.actor_id
