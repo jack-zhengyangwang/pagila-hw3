@@ -17,7 +17,7 @@ FROM (
         FROM rental r
         JOIN inventory i USING (inventory_id)
         WHERE r.customer_id = c.customer_id
-        ORDER BY r.rental_date DESC
+        ORDER BY r.rental_date DESC, r.rental_id DESC
         LIMIT 5
     ) t ON true
     LEFT JOIN film_category fc ON t.film_id = fc.film_id

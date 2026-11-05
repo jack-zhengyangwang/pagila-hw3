@@ -15,7 +15,7 @@ JOIN film_category fc2 ON fc.category_id = fc2.category_id
 JOIN film f2 ON fc2.film_id = f2.film_id
 WHERE f2.title = 'AMERICAN CIRCUS'
 GROUP BY f.film_id, f.title
-HAVING count(DISTINCT fc.category_id) >= 2
+HAVING count(*) >= 2
 INTERSECT
 SELECT f.title
 FROM film f
