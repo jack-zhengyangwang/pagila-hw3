@@ -12,10 +12,10 @@ SELECT name, title, "total rentals"
 FROM (
     SELECT cat.name,
            f.title,
-           count(*) AS "total rentals",
+           count(DISTINCT r.rental_id) AS "total rentals",
            row_number() OVER (
                PARTITION BY cat.category_id
-               ORDER BY count(*) DESC, f.title
+               ORDER BY count(DISTINCT r.rental_id) DESC, f.title
            ) AS rk
     FROM category cat
     JOIN film_category fc ON cat.category_id = fc.category_id

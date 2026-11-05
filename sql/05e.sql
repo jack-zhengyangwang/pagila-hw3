@@ -25,6 +25,7 @@ JOIN film_category fc ON f.film_id = fc.film_id
 JOIN film_category fc2 ON fc.category_id = fc2.category_id
 JOIN film f2 ON fc2.film_id = f2.film_id
 WHERE f2.title = 'AMERICAN CIRCUS'
+AND f.film_id <> f2.film_id
 GROUP BY f.film_id, f.title
 HAVING count(*) >= 2
 ORDER BY f.title;

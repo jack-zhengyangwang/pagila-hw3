@@ -10,7 +10,7 @@ FROM (
     SELECT c.customer_id,
            c.first_name,
            c.last_name,
-           count(*) FILTER (WHERE cat.name = 'Action') AS action_count
+           count(DISTINCT t.film_id) FILTER (WHERE cat.name = 'Action') AS action_count
     FROM customer c
     JOIN LATERAL (
         SELECT r.rental_date, i.film_id

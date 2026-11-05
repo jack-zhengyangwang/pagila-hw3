@@ -4,22 +4,20 @@
  * 2. but that have never appeared in any movie in the "Horror" category.
  */
 
-SELECT first_name, last_name
-FROM actor
-WHERE EXISTS (
-    SELECT 1
-    FROM film_actor
-    JOIN film_category USING (film_id)
-    JOIN category USING (category_id)
-    WHERE actor.actor_id = film_actor.actor_id
-    AND category.name = 'Children'
+SELECT a.first_name, a.last_name
+FROM actor a
+WHERE a.actor_id IN (
+    SELECT fa.actor_id
+    FROM film_actor fa
+    JOIN film_category fc USING (film_id)
+    JOIN category c USING (category_id)
+    WHERE c.name = 'Children'
 )
-AND NOT EXISTS (
-    SELECT 1
-    FROM film_actor
-    JOIN film_category USING (film_id)
-    JOIN category USING (category_id)
-    WHERE actor.actor_id = film_actor.actor_id
-    AND category.name = 'Horror'
+AND a.actor_id NOT IN (
+    SELECT fa.actor_id
+    FROM film_actor fa
+    JOIN film_category fc USING (film_id)
+    JOIN category c USING (category_id)
+    WHERE c.name = 'Horror'
 )
-ORDER BY last_name, first_name;
+ORDER BY a.last_name, a.first_name;
